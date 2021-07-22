@@ -18,15 +18,27 @@ public class BooStrapData implements CommandLineRunner {
 
     public BooStrapData(AuthorRepository authorRepository, BookRepository bookRepository,
                         PublisherRepository publisherRepository) {
-
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.publisherRepository = publisherRepository;
-
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        System.out.println("Started in boostrap");
+
+        Publisher publisher = new Publisher();
+        publisher.setName("SFG Publishing");
+        publisher.setAdressLine1("E Market Street");
+        publisher.setCity("Logansport");
+        publisher.setState("Indiana");
+        publisher.setZip(45402);
+
+        publisherRepository.save(publisher);
+
+        System.out.println("Publisher Count: " + publisherRepository.count());
+
 
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book("Domain Driven Design", "123123");
@@ -44,21 +56,9 @@ public class BooStrapData implements CommandLineRunner {
         authorRepository.save(rod);
         bookRepository.save(noEJB);
 
-        Author tolkie = new Author("JR", "Tolkien");
-        Book lotr = new Book("El señor de los anillos", "1423");
-        Publisher pinguin = new Publisher("Mexico colonia roma", "Guadalajara",
-                "Jalisco",45402);
-        tolkie.getBooks().add(lotr);
-        lotr.getAuthors().add(tolkie);
-        pinguin.
 
-        authorRepository.save(tolkie);
-        bookRepository.save(lotr);
-        publisherRepository.save(pinguin);
-
-        System.out.println("Started in boostrap");
         System.out.println("Number of books: " + bookRepository.count());
-        System.out.println("Number of Publisher: " + publisherRepository.count());
+
 
 
     }

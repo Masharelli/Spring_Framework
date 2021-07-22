@@ -1,30 +1,42 @@
 package com.example.SpringProject.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Publisher {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String name;
     private String adressLine1;
     private String city;
     private String state;
     private int zip;
 
-    @ManyToMany(mappedBy = "publishers")
-    private Set<Publisher> publisher = new HashSet<>();
+
 
     public Publisher() {
     }
 
-    public Publisher(String adressLine1, String city, String state, int zip) {
+    @Override
+    public String toString() {
+        return "Publisher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", adressLine1='" + adressLine1 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip=" + zip +
+                '}';
+    }
 
+    public Publisher(String name, String adressLine1, String city, String state, int zip) {
+
+        this.name = name;
         this.adressLine1 = adressLine1;
         this.city = city;
         this.state = state;
@@ -37,6 +49,14 @@ public class Publisher {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAdressLine1() {
@@ -69,17 +89,6 @@ public class Publisher {
 
     public void setZip(int zip) {
         this.zip = zip;
-    }
-
-    @Override
-    public String toString() {
-        return "Publisher{" +
-                "id=" + id +
-                ", adressLine1='" + adressLine1 + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip=" + zip +
-                '}';
     }
 
     @Override
